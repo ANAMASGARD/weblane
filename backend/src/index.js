@@ -14,7 +14,7 @@ async function main() {
     "messages": [
       {
         "role": "user",
-        "content": "write a function in javascript that takes a string and returns the string reversed"
+        "content": "complete code for a to-do list app in react with typescript and tailwind css"
       }
     ],
     "model": "qwen-2.5-coder-32b",
