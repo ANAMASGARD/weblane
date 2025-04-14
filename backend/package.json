@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +13,5 @@
   "dependencies": {
     "dotenv": "^16.5.0",
     "express": "^5.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
   }
 }
