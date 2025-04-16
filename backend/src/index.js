@@ -1,12 +1,9 @@
 require("dotenv").config();
 
-
-
-const { Groq }  = require('groq-sdk');
+const { Groq } = require('groq-sdk');
 
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
-
 });
 
 async function main() {
@@ -14,10 +11,10 @@ async function main() {
     "messages": [
       {
         "role": "user",
-        "content": "complete code for a to-do list app in react with typescript and tailwind css"
+        "content": "Write a function that give prime number in JavaScript."
       }
     ],
-    "model": "qwen-2.5-coder-32b",
+    "model": "deepseek-r1-distill-llama-70b", // Updated model name
     "temperature": 0.6,
     "max_completion_tokens": 4096,
     "top_p": 0.95,
@@ -31,4 +28,3 @@ async function main() {
 }
 
 main();
-
