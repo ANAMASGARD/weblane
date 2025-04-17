@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const express = require('express');
 const { Groq } = require('groq-sdk');
 
 const groq = new Groq({
@@ -11,7 +12,7 @@ async function main() {
     "messages": [
       {
         "role": "user",
-        "content": "Write a function that give prime number in JavaScript."
+        "content": "Write palindrome in java "
       }
     ],
     "model": "deepseek-r1-distill-llama-70b", // Updated model name
