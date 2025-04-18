@@ -32,6 +32,6 @@ function stripIndents(arg0, ...values) {
   }
   
   // Export the function using CommonJS
-  export default {
+  module.exports = {
     stripIndents
   };

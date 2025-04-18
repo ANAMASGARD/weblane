@@ -1,24 +1,32 @@
 {
-    "compilerOptions": {
-      "target": "es2022",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "resolveJsonModule": true,
-      "esModuleInterop": true,
-      
-      "rootDir": "./src",
-      "outDir": "./dist",
-      
-      "checkJs": true,
-      "strict": false,
-      "noImplicitAny": false,
-      
-      "baseUrl": ".",
-      "paths": {
-        "*": ["node_modules/*", "src/*"]
-      }
-    },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist"]
-  }
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2016",                                /* Set the JavaScript language version for emitted JavaScript */
+    
+    /* Modules */
+    "module": "commonjs",                              /* Specify what module code is generated */
+    "rootDir": "./src",                                /* Specify the root folder within your source files */
+    "moduleResolution": "node",                        /* Specify how JavaScript looks up a file from a given module specifier */
+    
+    /* Emit */
+    "outDir": "./dist",                                /* Specify an output folder for all emitted files */
+    
+    /* Interop Constraints */
+    "esModuleInterop": true,                           /* Emit additional JavaScript to ease support for importing CommonJS modules */
+    "forceConsistentCasingInFileNames": true,          /* Ensure that casing is correct in imports */
+    "allowSyntheticDefaultImports": true,              /* Allow 'import x from y' when a module doesn't have a default export */
+    
+    /* Type Checking for JS */
+    "checkJs": true,                                   /* Enable error reporting in JavaScript files */
+    "strict": false,                                   /* Set to false since this is a JavaScript project */
+    
+    /* Additional Settings from your existing jsconfig */
+    "resolveJsonModule": true,                         /* Enable importing .json files */
+    "baseUrl": ".",                                    /* Base directory to resolve non-relative module names */
+    "paths": {
+      "*": ["node_modules/*", "src/*"]                 /* Specify path mappings */
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
