@@ -2,22 +2,16 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mic, Send, Loader2, ChevronDown } from 'lucide-react';
 import Button from '../common/Button';
-// Removed useAppContext as frontend uses a different state management approach
-// import { useAppContext } from '../../context/AppContext'; 
-// Removed mockGenerateWebsite as frontend uses WebContainer
-// import { mockGenerateWebsite } from '../../utils/mockData';
 
-// Keep models for UI, but functionality will be handled differently
+// Keep models for UI
 const models = [
-  { id: 'llama-4', name: 'Llama 4 Maverick' },
   { id: 'qwen-72b', name: 'Qwen-72B' },
-  { id: 'claude-3', name: 'Claude 3 Opus' },
+  { id: 'llama-4', name: 'Llama 4 Maverick' },
+  { id: 'claude-3', name: 'Deepseek-R1' },
   { id: 'gpt-4', name: 'GPT-4 Turbo' },
 ];
 
 const PromptInput = () => {
-  // Removed state related to AppContext
-  // const { setPrompt, setIsGenerating, setGeneratedSteps, setFileStructure } = useAppContext();
   const [inputValue, setInputValue] = useState('');
   const [isRecording, setIsRecording] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,21 +39,13 @@ const PromptInput = () => {
 
     setIsSubmitting(true);
     
-    // Navigate to the builder page with the prompt in state
-    navigate('/build', { state: { prompt: inputValue } });
-    
-    // No need to call generation logic here, it's handled in Builder.tsx
-    // try {
-    //   const { steps, files } = await mockGenerateWebsite();
-    //   setGeneratedSteps(steps);
-    //   setFileStructure(files);
-    //   setIsGenerating(true);
-    //   navigate('/result');
-    // } catch (error) {
-    //   console.error('Error generating website:', error);
-    // } finally {
-    //   setIsSubmitting(false);
-    // }
+    try {
+      // Navigate to the builder page with the prompt in state
+      navigate('/builder', { state: { prompt: inputValue } });
+    } catch (error) {
+      console.error('Error navigating to builder:', error);
+      setIsSubmitting(false);
+    }
   };
 
   return (
