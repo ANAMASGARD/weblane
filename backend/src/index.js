@@ -1,16 +1,49 @@
 require("dotenv").config();
 const express = require("express");
-const { Groq } = require("groq-sdk");
-const { BASE_PROMPT, getSystemPrompt } = require("./prompts");
-const { basePrompt: nodeBasePrompt } = require("./defaults/node");
-const { basePrompt: reactBasePrompt } = require("./defaults/react");
 const cors = require("cors");
 const path = require('path');
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+// Add debugging to see environment variables at startup
+console.log("Starting server...");
+console.log("Environment variables:", Object.keys(process.env));
+console.log("GROQ_API_KEY exists:", Boolean(process.env.GROQ_API_KEY));
+console.log("GROQ_API_KEY length:", process.env.GROQ_API_KEY ? process.env.GROQ_API_KEY.length : 0);
+
+// Initialize Groq client with fallback and better error handling
+let groq;
+try {
+  const { Groq } = require("groq-sdk");
+  
+  // Check if API key exists, otherwise use a hardcoded key (for development/testing)
+  const apiKey = process.env.GROQ_API_KEY || "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";
+  
+  console.log("Initializing Groq client with API key (first 5 chars):", apiKey.substring(0, 5) + "...");
+  
+  groq = new Groq({
+    apiKey: apiKey,
+  });
+  console.log("Groq client initialized successfully");
+} catch (error) {
+  console.error("Failed to initialize Groq client:", error);
+}
+
+const { BASE_PROMPT, getSystemPrompt } = require("./prompts");
+const { basePrompt: nodeBasePrompt } = require("./defaults/node");
+const { basePrompt: reactBasePrompt } = require("./defaults/react");
+
 const app = express();
+
+// Add health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).send({
+    status: "ok",
+    groqInitialized: Boolean(groq),
+    envVars: {
+      hasGroqKey: Boolean(process.env.GROQ_API_KEY),
+      port: process.env.PORT
+    }
+  });
+});
 
 // Error handler middleware - add this first to catch path-to-regexp errors
 app.use((err, req, res, next) => {
