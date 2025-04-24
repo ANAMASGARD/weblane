@@ -5,6 +5,7 @@ const { BASE_PROMPT, getSystemPrompt } = require("./prompts");
 const { basePrompt: nodeBasePrompt } = require("./defaults/node");
 const { basePrompt: reactBasePrompt } = require("./defaults/react");
 const cors = require("cors");
+const path = require('path');
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -12,6 +13,9 @@ const groq = new Groq({
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from frontend build
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.post("/template", async (req, res) => {
   const prompt = req.body.prompt;
@@ -83,4 +87,12 @@ app.post("/chat", async (req, res) => {
   });
 });
 
-app.listen(3000);
+// React Router fallback
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
